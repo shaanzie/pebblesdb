@@ -19,6 +19,8 @@
 
 namespace leveldb {
 
+leveldb::Env* g_env = leveldb::Env::Default();
+
 class PosixLogger : public Logger {
  private:
   PosixLogger(const PosixLogger&);
@@ -55,7 +57,8 @@ class PosixLogger : public Logger {
       struct tm t;
       localtime_r(&seconds, &t);
       p += snprintf(p, limit - p,
-                    "%04d/%02d/%02d-%02d:%02d:%02d.%06d %llx ",
+                    "%lu;%04d/%02d/%02d-%02d:%02d:%02d.%06d %llx ",
+                    g_env->NowMicros(),
                     t.tm_year + 1900,
                     t.tm_mon + 1,
                     t.tm_mday,

@@ -13,6 +13,8 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <fstream>
+#include <bits/stdc++.h>
+#include <time.h>
 
 #include <sys/types.h>
 #include <stdio.h>
@@ -263,6 +265,9 @@ class Stats {
     if (FLAGS_histogram) {
       double now = Env::Default()->NowMicros();
       double micros = now - last_op_finish_;
+      std::ofstream latencyFile;
+      latencyFile.open("latency.csv", std::ios::app);
+      latencyFile << now << "," << micros << std::endl;
       hist_.Add(micros);
       if (micros > 20000) {
         fprintf(stderr, "long op: %.1f micros%30s\r", micros, "");
