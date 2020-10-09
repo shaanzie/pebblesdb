@@ -105,7 +105,7 @@ static int FLAGS_write_threads = 1;
 static int FLAGS_read_threads = 1;
 
 // Size of each value
-static int FLAGS_value_size = 1024;
+static int FLAGS_value_size = 100;
 
 // Arrange to generate values that shrink to this fraction of
 // their original size after compression
