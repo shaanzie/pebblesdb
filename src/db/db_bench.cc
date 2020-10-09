@@ -266,8 +266,10 @@ class Stats {
       double now = Env::Default()->NowMicros();
       double micros = now - last_op_finish_;
       std::ofstream latencyFile;
+      struct timeval tv;
+      gettimeofday(&tv, NULL);
       latencyFile.open("latency.csv", std::ios::app);
-      latencyFile << now << "," << micros << std::endl;
+      latencyFile << static_cast<uint64_t>(tv.tv_sec) * 1000000 + tv.tv_usec << "," << micros << std::endl;
       hist_.Add(micros);
       if (micros > 20000) {
         fprintf(stderr, "long op: %.1f micros%30s\r", micros, "");
